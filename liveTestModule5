@@ -1,0 +1,53 @@
+void main() {
+  // Step 1: Define the list of students and their scores
+  List<Map<String, dynamic>> students = [
+    {"name": "Alice", "scores": [85, 90, 78]},
+    {"name": "Bob", "scores": [88, 76, 95]},
+    {"name": "Charlie", "scores": [90, 92, 85]}
+  ];
+
+  // Step 2: Create an empty map to store student name and their average score
+  Map<String, double> averages = {};
+
+  // Step 3: Go through each student one by one
+  for (int i = 0; i < students.length; i++) {
+    // Get the student's name
+    String name = students[i]["name"];
+
+    // Get the list of scores and convert it to a list of integers
+    List<int> scores = List<int>.from(students[i]["scores"]);
+
+    // Calculate the total score by adding all values
+    int totalScore = 0;
+    for (int j = 0; j < scores.length; j++) {
+      totalScore += scores[j];
+    }
+
+    // Calculate the average score
+    double average = totalScore / scores.length;
+
+    // Round the average to 2 decimal places
+    double roundedAverage = double.parse(average.toStringAsFixed(2));
+
+    // Store the result in the map
+    averages[name] = roundedAverage;
+  }
+
+  // Step 4: Convert the map into a list of entries (name and average pairs)
+  List<MapEntry<String, double>> entryList = averages.entries.toList();
+
+  // Step 5: Sort the list in descending order based on the average score
+  entryList.sort((a, b) => b.value.compareTo(a.value));
+
+  // Step 6: Create a new map to store the sorted data
+  Map<String, double> sortedAverages = {};
+  for (int i = 0; i < entryList.length; i++) {
+    String name = entryList[i].key;
+    double average = entryList[i].value;
+    sortedAverages[name] = average;
+  }
+
+  // Step 7: Print the final result
+  print("Sorted student averages (highest to lowest):");
+  print(sortedAverages);
+}
